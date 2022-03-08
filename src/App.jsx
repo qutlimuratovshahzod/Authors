@@ -1,44 +1,37 @@
-import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
+import { NavLink, Routes, Route } from "react-router-dom";
 import { About } from "./pages/About";
-import { Carts } from "./pages/Carts";
-import { Contact } from "./pages/Contact";
 import { Home } from "./pages/Home";
 import { Profile } from "./pages/Profile";
-import { User } from "./pages/User";
-import {Phones} from "./pages/Phones"
-import { Future } from "./pages/Future";
-import { History } from "./pages/History";
+import { Settings } from "./pages/Settings";
+import {Users} from "./pages/Users";
+
+
 function App() {
   return (
-    <BrowserRouter>
-    <div className="App">
-      <ul>
+    <div className="App flex justify-center items-center pt-52 gap-1.5">
+      <ul className="block justify-start items-center gap-1 w-72 bg-sky-500  text-center">
         <li>
-          <NavLink to="/">Home</NavLink>
+          <NavLink to='/'>Home</NavLink>
         </li>
         <li>
-          <NavLink to="/about">About</NavLink>
-          </li>
-          <li>
-          <NavLink to="/contact">Contact</NavLink>
-          </li>
+          <NavLink to='/about'>About</NavLink>
+        </li>
+        <li>
+          <NavLink to='/settings'>Settings</NavLink>
+        </li>
       </ul>
-      <Routes>
-        <Route path="/"element={<Home/>}/>
-        <Route path="/about" element={<About/>}>
-          <Route path="/about/user" element={<User/>}>
-            <Route path="/about/user/carts" element={<Carts/>}/>
-            <Route path="/about/user/phones" element={<Phones/>}/>
-            </Route>
-          <Route path="/about/profile" element={<Profile/>} >
-          <Route path="/about/profile/future" element={<Future/>}/>
-          <Route path="/about/profile/history" element={<History/>}/>
-            </Route>
+      <div>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/settings" element={<Settings />}>
+            <Route path="users" element={<Users />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
-        <Route path="/contact" element={<Contact/>}/>
-      </Routes>
+        </Routes>
+
+      </div>
     </div>
-    </BrowserRouter>
   );
 }
 
