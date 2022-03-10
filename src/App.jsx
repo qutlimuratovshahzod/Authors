@@ -1,33 +1,40 @@
+import { useEffect, useState } from "react";
 import { NavLink, Routes, Route } from "react-router-dom";
-import { About } from "./pages/About";
+import { Authors } from "./pages/Authors";
+import { Blog } from "./pages/Blog";
+import { Blogs } from "./pages/Blogs";
 import { Home } from "./pages/Home";
-import { Profile } from "./pages/Profile";
-import { Settings } from "./pages/Settings";
-import {Users} from "./pages/Users";
 
 
 function App() {
+
+  const [blogs, setBlogs] = useState([])
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json())
+      .then(json => setBlogs(json))
+  }, [])
+  
   return (
-    <div className="App flex justify-center items-center pt-52 gap-1.5">
-      <ul className="block justify-start items-center gap-1 w-72 bg-sky-500  text-center">
+    <div>
+      <ul>
         <li>
           <NavLink to='/'>Home</NavLink>
         </li>
         <li>
-          <NavLink to='/about'>About</NavLink>
+          <NavLink to='/blogs'>Blogs</NavLink>
         </li>
         <li>
-          <NavLink to='/settings'>Settings</NavLink>
+        <NavLink to='/authors'>Authors</NavLink>
         </li>
       </ul>
-      <div>
+      <div >
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/settings" element={<Settings />}>
-            <Route path="users" element={<Users />} />
-            <Route path="profile" element={<Profile />} />
-          </Route>
+          <Route path="/blogs" element={<Blogs blogs={blogs} />} />
+          <Route path="/blogs/:id" element={<Blog blogs={blogs}/>}/>
+          <Route path="/authors" element={<Authors/>}/>
         </Routes>
 
       </div>
